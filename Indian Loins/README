@@ -1,0 +1,109 @@
+
+Team Name: Indian Loins
+
+Team-members:
+
+Yaswanth Mopada (#20585424)
+Vishwas Reddy Dodle (#20562449)
+
+Contributions:
+
+Vishwas Reddy:
+   
+  i) Data Preprocessing: Selecting the predicted variables and target variables.
+ ii) Model Evaluation:   evaluating the model using both cross-validation and bootstrapping                                 
+                         methods
+iii) AIC - Calculations: Developing the function to compute AIC for the model.
+ iv) Error-handling:     Testing the robustness of the function.
+ 
+Yaswanth Mopada:
+
+   i)Bootstrapping:  Designed and Implemented the bootstrapping function for the model.
+  ii)K-fold Cross-validation: Implemented the function for k-fold cross-validation and					      integrated it into evaluation workflow.
+ iii) Code-Optimisation: Optimising functions to improve efficiency of the model.
+  iv) Final-Report: Compiling the finding into ReadMe-file.
+
+# Model Selection and Evaluation
+# Project Overview
+This project implements three model selection and evaluation methods—k-Fold Cross-Validation, Bootstrapping, and AIC—using a linear regression model to predict customer purchase behavior. The dataset used contains customer demographics and purchase information, including attributes like age, income, spending score, membership years, purchase frequency, and last purchase amount.
+
+The goal is to evaluate the performance of the linear regression model on this dataset using the three model selection techniques and compare their results. This can help in understanding the robustness and effectiveness of each method in assessing model performance.
+
+# Dataset
+The dataset used for this project is Customer Purchase Data.csv, which contains the following columns:
+
+Number: Unique identifier for each customer
+Age: Age of the customer
+Income: Income of the customer
+Spending_Score: Spending score of the customer
+Membership_Years: Duration (in years) the customer has been a member
+Purchase_Frequency: Frequency of the customer’s purchases
+Last_Purchase_Amount: Amount of the customer's last purchase (target variable)
+
+# Sample Data:
+
+Number	Age	Income	Spending_Score	Membership_Years	Purchase_Frequency	Last_Purchase_Amount
+1	56	61351	12373	15	77.69	6232.12
+2	46	53777	11002	10	51.86	5545.85
+3	32	39460	8007	19	98.17	4054.65
+# Methods Implemented
+k-Fold Cross-Validation: This method divides the data into k subsets and evaluates the model's performance on each subset. The scores are averaged to estimate the model's generalization performance.
+
+Bootstrapping: This technique repeatedly samples from the dataset (with replacement) and fits the model to each sample. It provides an estimate of the model’s performance variability.
+
+AIC (Akaike Information Criterion): AIC is used to evaluate the fit of the model while considering the complexity (number of parameters) of the model. A lower AIC indicates a better model fit with fewer parameters.
+
+# Results
+
+k-Fold Cross-Validation:
+
+Mean: -1631.54
+Std Dev: 94.46
+
+Bootstrapping:
+
+Mean: 1626.20
+Std Dev: 4.55e-13
+AIC:10078.66
+# Questions Answered 
+# 1. Do your cross-validation and bootstrapping model selectors agree with a simpler model selector like AIC in simple cases (like linear regression)?
+In simple cases like linear regression, both cross-validation and bootstrapping methods should provide similar results, but they are more robust and flexible for complex models. AIC, being an information criterion, balances fit and complexity. In the case of simple linear regression, the results from k-Fold cross-validation and bootstrapping may be close to the AIC, but discrepancies may arise in more complex models.
+
+# 2. In what cases might the methods you've written fail or give incorrect or undesirable results?
+k-Fold Cross-Validation: Can be computationally expensive, especially with large datasets. If the data is not shuffled well or is highly imbalanced, the model’s performance could be skewed.
+Bootstrapping: May not perform well if the dataset is too small, as resampling can create overfitting. Additionally, if the model is not robust, the performance estimate might be misleading.
+AIC: AIC might fail when the model does not fit the assumptions of linear regression, such as in the presence of outliers or non-linear relationships.
+# 3. What could you implement given more time to mitigate these cases or help users of your methods?
+For k-Fold Cross-Validation, implementing stratified k-fold (to maintain class distributions in each fold) and parallel processing could mitigate some performance issues.
+For Bootstrapping, adjusting the number of bootstrap samples based on the dataset size could improve performance.
+For AIC, applying alternative information criteria like BIC (Bayesian Information Criterion) in cases of non-normal residuals or complex models might be more appropriate.
+# 4. What parameters have you exposed to your users in order to use your model selectors?
+k-Fold Cross-Validation:
+
+k: Number of folds for cross-validation (default = 5)
+scoring: The scoring metric used for evaluation (default = 'neg_mean_squared_error')
+Bootstrapping:
+
+n_bootstrap: Number of bootstrap samples (default = 100)
+AIC:
+
+Model parameters are based on the fitted LinearRegression model, which uses the features Age, Income, Membership_Years, and Purchase_Frequency.
+# Installation and Usage
+Clone the repository or download the Python script.
+Install the required libraries:
+
+pip install pandas numpy scikit-learn matplotlib
+
+Place your Customer Purchase Data.csv file in the same directory as the Python script.
+Run the Python script to perform k-Fold cross-validation, bootstrapping, and AIC calculations.
+
+
+python model_selection.py
+
+# Visualizations
+ The following visualizations added to enhance understanding of the model's performance:
+
+Learning Curves: Plotting training and validation errors across folds can help visualize the model’s performance on unseen data.
+Bootstrapping Variability: A histogram showing the distribution of bootstrapped scores can give insight into the variance in model performance.
+# Conclusion
+This project demonstrates how different model selection techniques—k-Fold cross-validation, bootstrapping, and AIC—can be used to evaluate the performance of a linear regression model. By comparing these methods, we can understand the trade-offs and limitations of each approach.
